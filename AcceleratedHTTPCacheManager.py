@@ -17,10 +17,14 @@ Accelerated HTTP cache manager --
 
 XXX TODO: Consider adding features from this patch:
 http://www.zope.org/Members/mtb/index_html/AcceleratedHTTPCacheManager-headers.diff/file_view
+XXXX Related bug report: http://www.zope.org/Collectors/Zope/589
 
 XXX TODO: Add UI for strip_root_paths feature.
 
 XXX TODO: update help.stx.
+
+XXX TODO: a "Purge All" button would be handy. Check if Squid purges
+everything below a PURGE path, or only purges exactly that path.
 
 $Id$
 '''
