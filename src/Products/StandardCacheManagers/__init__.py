@@ -11,9 +11,7 @@
 #
 ##############################################################################
 '''
-Some standard Zope cache managers from Digital Creations.
-
-$Id$
+Some standard Zope cache managers.
 '''
 
 import RAMCacheManager

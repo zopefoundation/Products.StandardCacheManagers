@@ -13,8 +13,6 @@
 '''
 RAM cache manager --
   Caches the results of method calls in RAM.
-
-$Id$
 '''
 from cgi import escape
 from thread import allocate_lock

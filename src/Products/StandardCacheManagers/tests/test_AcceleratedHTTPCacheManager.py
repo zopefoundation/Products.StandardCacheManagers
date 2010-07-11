@@ -12,8 +12,6 @@
 #
 ##############################################################################
 """ Unit tests for AcceleratedCacheManager module.
-
-$Id$
 """
 
 import unittest
@@ -148,7 +146,3 @@ def test_suite():
     suite.addTest(unittest.makeSuite(AcceleratedHTTPCacheTests))
     suite.addTest(unittest.makeSuite(CacheManagerTests))
     return suite
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')
-

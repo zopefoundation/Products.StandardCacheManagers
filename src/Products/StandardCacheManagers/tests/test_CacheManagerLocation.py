@@ -12,8 +12,6 @@
 #
 ##############################################################################
 """ Unit tests for AcceleratedCacheManager module.
-
-$Id$
 """
 
 import unittest
@@ -27,7 +25,6 @@ from zope.component import eventtesting
 from AccessControl import SecurityManager
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
-from OFS.Folder import Folder
 from OFS.tests.testCopySupport import CopySupportTestBase
 from OFS.tests.testCopySupport import UnitTestSecurityPolicy
 from OFS.tests.testCopySupport import UnitTestUser
@@ -131,7 +128,3 @@ def test_suite():
     suite.addTest(unittest.makeSuite(AcceleratedHTTPCacheManagerLocationTests))
     suite.addTest(unittest.makeSuite(RamCacheManagerLocationTests))
     return suite
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')
-

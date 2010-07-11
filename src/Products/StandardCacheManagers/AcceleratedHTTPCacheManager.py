@@ -14,9 +14,8 @@
 Accelerated HTTP cache manager --
   Adds caching headers to the response so that downstream caches will
   cache according to a common policy.
-
-$Id$
 '''
+
 from cgi import escape
 import httplib
 import logging
