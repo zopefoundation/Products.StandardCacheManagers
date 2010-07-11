@@ -34,9 +34,11 @@ class DummyObject:
     def absolute_url_path(self):
         return self.urlpath
 
+
 class MockResponse:
     status = '200'
     reason = "who knows, I'm just a mock"
+
 
 def MockConnectionClassFactory():
     # Returns both a class that mocks an HTTPConnection,
@@ -50,9 +52,9 @@ def MockConnectionClassFactory():
             self.request_log = request_log
 
         def request(self, method, path):
-            self.request_log.append({'method':method,
-                                     'host':self.host,
-                                     'path':path,})
+            self.request_log.append({'method': method,
+                                     'host': self.host,
+                                     'path': path})
         def getresponse(self):
             return MockResponse()
 
@@ -117,7 +119,7 @@ class CacheManagerTests(unittest.TestCase):
     def _makeContext(self):
         from OFS.Folder import Folder
         root = Folder()
-        root.getPhysicalPath = lambda: ('', 'some_path',)
+        root.getPhysicalPath = lambda: ('', 'some_path', )
         cm_id = 'http_cache'
         manager = self._makeOne(cm_id)
         root._setObject(cm_id, manager)

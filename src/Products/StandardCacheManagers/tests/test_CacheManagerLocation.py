@@ -39,8 +39,8 @@ CACHE_META_TYPES = tuple(dict(name=instance_class.meta_type,
                               action='unused_constructor_name',
                               permission="Add %ss" % instance_class.meta_type)
                          for instance_class in (RAMCacheManager,
-                                                AcceleratedHTTPCacheManager)
-                         )
+                                                AcceleratedHTTPCacheManager))
+
 
 class CacheManagerLocationTests(CopySupportTestBase):
 
@@ -49,7 +49,7 @@ class CacheManagerLocationTests(CopySupportTestBase):
     def _makeOne(self, *args, **kw):
         return self._targetClass(*args, **kw)
 
-    def setUp( self ):
+    def setUp(self):
         componenttesting.setUp()
         eventtesting.setUp()
         zcml.load_config('meta.zcml', zope.component)
@@ -63,7 +63,7 @@ class CacheManagerLocationTests(CopySupportTestBase):
         self.folder2 = folder2
 
         self.policy = UnitTestSecurityPolicy()
-        self.oldPolicy = SecurityManager.setSecurityPolicy( self.policy )
+        self.oldPolicy = SecurityManager.setSecurityPolicy(self.policy)
 
         cm_id = 'cache'
         manager = self._makeOne(cm_id)
@@ -71,14 +71,14 @@ class CacheManagerLocationTests(CopySupportTestBase):
         self.cachemanager = self.folder1[cm_id]
         transaction.savepoint(optimistic=True)
 
-        newSecurityManager( None, UnitTestUser().__of__( self.root ) )
+        newSecurityManager(None, UnitTestUser().__of__(self.root))
 
         CopySupportTestBase.setUp(self)
 
-    def tearDown( self ):
+    def tearDown(self):
 
         noSecurityManager()
-        SecurityManager.setSecurityPolicy( self.oldPolicy )
+        SecurityManager.setSecurityPolicy(self.oldPolicy)
         del self.oldPolicy
         del self.policy
         del self.folder2
@@ -115,13 +115,16 @@ class CacheManagerLocationTests(CopySupportTestBase):
         new_cache = self.cachemanager.ZCacheManager_getCache()
         self.assertNotEqual(old_cache, new_cache)
 
+
 class AcceleratedHTTPCacheManagerLocationTests(CacheManagerLocationTests):
 
     _targetClass = AcceleratedHTTPCacheManager
 
+
 class RamCacheManagerLocationTests(CacheManagerLocationTests):
 
     _targetClass = RAMCacheManager
+
 
 def test_suite():
     suite = unittest.TestSuite()

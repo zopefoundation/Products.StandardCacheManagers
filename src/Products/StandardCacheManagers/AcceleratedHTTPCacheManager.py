@@ -35,6 +35,7 @@ from OFS.SimpleItem import SimpleItem
 
 logger = logging.getLogger('Zope.AcceleratedHTTPCacheManager')
 
+
 class AcceleratedHTTPCache (Cache):
     # Note the need to take thread safety into account.
     # Also note that objects of this class are not persistent,
@@ -66,12 +67,12 @@ class AcceleratedHTTPCache (Cache):
         # documented.  (pot! kettle! black!)
 
         phys_path = ob.getPhysicalPath()
-        if self.hit_counts.has_key(phys_path):
+        if phys_path in self.hit_counts:
             del self.hit_counts[phys_path]
         purge_paths = (ob.absolute_url_path(), quote('/'.join(phys_path)))
         # Don't purge the same path twice.
         if purge_paths[0] == purge_paths[1]:
-            purge_paths  = purge_paths[:1]
+            purge_paths = purge_paths[:1]
         results = []
         for url in self.notify_urls:
             if not url.strip():
@@ -81,8 +82,8 @@ class AcceleratedHTTPCache (Cache):
                 u = url
             else:
                 u = 'http://' + url
-            (scheme, host, path, params, query, fragment
-             ) = urlparse.urlparse(u)
+            (scheme, host, path, params, query,
+             fragment) = urlparse.urlparse(u)
             if path.lower().startswith('/http://'):
                     path = path.lstrip('/')
             for ob_path in purge_paths:
@@ -122,10 +123,10 @@ class AcceleratedHTTPCache (Cache):
             if u.getUserName() != 'Anonymous User':
                 anon = 0
         phys_path = ob.getPhysicalPath()
-        if self.hit_counts.has_key(phys_path):
+        if phys_path in self.hit_counts:
             hits = self.hit_counts[phys_path]
         else:
-            self.hit_counts[phys_path] = hits = [0,0]
+            self.hit_counts[phys_path] = hits = [0, 0]
         if anon:
             hits[0] = hits[0] + 1
         else:
@@ -136,7 +137,7 @@ class AcceleratedHTTPCache (Cache):
         # Set HTTP Expires and Cache-Control headers
         seconds=self.interval
         expires=rfc1123_date(time.time() + seconds)
-        RESPONSE.setHeader('Last-Modified',rfc1123_date(time.time()))
+        RESPONSE.setHeader('Last-Modified', rfc1123_date(time.time()))
         RESPONSE.setHeader('Cache-Control', 'max-age=%d' % seconds)
         RESPONSE.setHeader('Expires', expires)
 
@@ -144,17 +145,18 @@ class AcceleratedHTTPCache (Cache):
 caches = {}
 PRODUCT_DIR = __name__.split('.')[-2]
 
+
 class AcceleratedHTTPCacheManager (CacheManager, SimpleItem):
     ' '
 
     security = ClassSecurityInfo()
-    security.setPermissionDefault('Change cache managers', ('Manager',))
+    security.setPermissionDefault('Change cache managers', ('Manager', ))
 
     manage_options = (
-        {'label':'Properties', 'action':'manage_main',
-         'help':(PRODUCT_DIR, 'Accel.stx'),},
-        {'label':'Statistics', 'action':'manage_stats',
-         'help':(PRODUCT_DIR, 'Accel.stx'),},
+        {'label': 'Properties', 'action': 'manage_main',
+         'help': (PRODUCT_DIR, 'Accel.stx')},
+        {'label': 'Statistics', 'action': 'manage_stats',
+         'help': (PRODUCT_DIR, 'Accel.stx')},
         ) + CacheManager.manage_options + SimpleItem.manage_options
 
     meta_type = 'Accelerated HTTP Cache Manager'
@@ -162,9 +164,9 @@ class AcceleratedHTTPCacheManager (CacheManager, SimpleItem):
     def __init__(self, ob_id):
         self.id = ob_id
         self.title = ''
-        self._settings = {'anonymous_only':1,
-                          'interval':3600,
-                          'notify_urls':()}
+        self._settings = {'anonymous_only': 1,
+                          'interval': 3600,
+                          'notify_urls': ()}
         self._resetCacheId()
 
     def getId(self):
@@ -205,9 +207,9 @@ class AcceleratedHTTPCacheManager (CacheManager, SimpleItem):
             settings = REQUEST
         self.title = str(title)
         self._settings = {
-            'anonymous_only':settings.get('anonymous_only') and 1 or 0,
-            'interval':int(settings['interval']),
-            'notify_urls':tuple(settings['notify_urls']),}
+            'anonymous_only': settings.get('anonymous_only') and 1 or 0,
+            'interval': int(settings['interval']),
+            'notify_urls': tuple(settings['notify_urls'])}
         cache = self.ZCacheManager_getCache()
         cache.initSettings(self._settings)
         if REQUEST is not None:
@@ -268,10 +270,9 @@ InitializeClass(AcceleratedHTTPCacheManager)
 manage_addAcceleratedHTTPCacheManagerForm = DTMLFile('dtml/addAccel',
                                                      globals())
 
+
 def manage_addAcceleratedHTTPCacheManager(self, id, REQUEST=None):
     ' '
     self._setObject(id, AcceleratedHTTPCacheManager(id))
     if REQUEST is not None:
         return self.manage_main(self, REQUEST)
-
-# FYI good resource: http://www.web-caching.com/proxy-caches.html

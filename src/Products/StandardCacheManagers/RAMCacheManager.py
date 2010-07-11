@@ -122,8 +122,10 @@ class ObjectCacheEntries:
         self.entries[index] = CacheEntry(index, data, view_name)
 
     def delEntry(self, index):
-        try: del self.entries[index]
-        except KeyError: pass
+        try:
+            del self.entries[index]
+        except KeyError:
+            pass
 
 
 class RAMCache (Cache):
@@ -263,7 +265,7 @@ class RAMCache (Cache):
                     'size': size,
                     'counter': ac,
                     'views': views,
-                    'entries': len(oc.entries)
+                    'entries': len(oc.entries),
                     }
             rval.append(info)
         return rval
@@ -333,32 +335,33 @@ class RAMCache (Cache):
 caches = {}
 PRODUCT_DIR = __name__.split('.')[-2]
 
+
 class RAMCacheManager (CacheManager, SimpleItem):
-    """Manage a RAMCache, which stores rendered data in RAM. 
+    """Manage a RAMCache, which stores rendered data in RAM.
 
     This is intended to be used as a low-level cache for
     expensive Python code, not for objects published
     under their own URLs such as web pages.
 
     RAMCacheManager *can* be used to cache complete publishable
-    pages, such as DTMLMethods/Documents and Page Templates, 
+    pages, such as DTMLMethods/Documents and Page Templates,
     but this is not advised: such objects typically do not attempt
     to cache important out-of-band data such as 3xx HTTP responses,
     and the client would get an erroneous 200 response.
 
-    Such objects should instead be cached with an                             
-    AcceleratedHTTPCacheManager and/or downstream                               
+    Such objects should instead be cached with an
+    AcceleratedHTTPCacheManager and/or downstream
     caching.
     """
 
     security = ClassSecurityInfo()
-    security.setPermissionDefault('Change cache managers', ('Manager',))
+    security.setPermissionDefault('Change cache managers', ('Manager', ))
 
     manage_options = (
-        {'label':'Properties', 'action':'manage_main',
-         'help':(PRODUCT_DIR, 'RAM.stx'),},
-        {'label':'Statistics', 'action':'manage_stats',
-         'help':(PRODUCT_DIR, 'RAM.stx'),},
+        {'label': 'Properties', 'action': 'manage_main',
+         'help': (PRODUCT_DIR, 'RAM.stx')},
+        {'label': 'Statistics', 'action': 'manage_stats',
+         'help': (PRODUCT_DIR, 'RAM.stx')},
         ) + CacheManager.manage_options + SimpleItem.manage_options
 
     meta_type = 'RAM Cache Manager'
@@ -369,7 +372,7 @@ class RAMCacheManager (CacheManager, SimpleItem):
         self._settings = {
             'threshold': 1000,
             'cleanup_interval': 300,
-            'request_vars': ('AUTHENTICATED_USER',),
+            'request_vars': ('AUTHENTICATED_USER', ),
             'max_age': 3600,
             }
         self._resetCacheId()
@@ -401,7 +404,7 @@ class RAMCacheManager (CacheManager, SimpleItem):
     def getSettings(self):
         'Returns the current cache settings.'
         res = self._settings.copy()
-        if not res.has_key('max_age'):
+        if 'max_age' not in res:
             res['max_age'] = 0
         return res
 
@@ -499,6 +502,7 @@ class _ByteCounter:
         return self._count
 
 manage_addRAMCacheManagerForm = DTMLFile('dtml/addRCM', globals())
+
 
 def manage_addRAMCacheManager(self, id, REQUEST=None):
     'Adds a RAM cache manager to the folder.'
