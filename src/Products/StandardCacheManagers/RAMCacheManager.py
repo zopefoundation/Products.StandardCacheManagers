@@ -290,10 +290,14 @@ class RAMCache (Cache):
         '''
         Gets a cache entry or returns default.
         '''
+        if not hasattr(ob, 'REQUEST'):
+            return default
+
         oc = self.getObjectCacheEntries(ob)
         if oc is None:
             return default
         lastmod = ob.ZCacheable_getModTime(mtime_func)
+
         index = oc.aggregateIndex(view_name, ob.REQUEST,
                                   self.request_vars, keywords)
         entry = oc.getEntry(lastmod, index)
@@ -316,6 +320,9 @@ class RAMCache (Cache):
         '''
         Sets a cache entry.
         '''
+        if not hasattr(ob, 'REQUEST'):
+            return
+
         now = time.time()
         if self.next_cleanup <= now:
             self.cleanup()
