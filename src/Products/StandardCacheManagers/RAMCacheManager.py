@@ -294,7 +294,8 @@ class RAMCache (Cache):
         if oc is None:
             return default
         lastmod = ob.ZCacheable_getModTime(mtime_func)
-        index = oc.aggregateIndex(view_name, ob.REQUEST,
+
+        index = oc.aggregateIndex(view_name, getattr(ob, 'REQUEST', None),
                                   self.request_vars, keywords)
         entry = oc.getEntry(lastmod, index)
         if entry is _marker:
@@ -325,7 +326,7 @@ class RAMCache (Cache):
         self.writelock.acquire()
         try:
             oc = self.getObjectCacheEntries(ob, create=1)
-            index = oc.aggregateIndex(view_name, ob.REQUEST,
+            index = oc.aggregateIndex(view_name, getattr(ob, 'REQUEST', None),
                                       self.request_vars, keywords)
             oc.setEntry(lastmod, index, data, view_name)
             oc.misses = oc.misses + 1
