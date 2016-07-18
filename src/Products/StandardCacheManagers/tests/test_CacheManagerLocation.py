@@ -14,8 +14,6 @@
 """ Unit tests for AcceleratedCacheManager module.
 """
 
-import unittest
-
 import transaction
 import zope.component
 
@@ -31,8 +29,9 @@ from OFS.tests.testCopySupport import UnitTestUser
 
 from Zope2.App import zcml
 from Products.StandardCacheManagers.RAMCacheManager import RAMCacheManager
-from Products.StandardCacheManagers.AcceleratedHTTPCacheManager \
-     import AcceleratedHTTPCacheManager
+from Products.StandardCacheManagers.AcceleratedHTTPCacheManager import (
+    AcceleratedHTTPCacheManager,
+)
 import Products.StandardCacheManagers
 
 CACHE_META_TYPES = tuple(dict(name=instance_class.meta_type,
@@ -42,7 +41,7 @@ CACHE_META_TYPES = tuple(dict(name=instance_class.meta_type,
                                                 AcceleratedHTTPCacheManager))
 
 
-class CacheManagerLocationTests(CopySupportTestBase):
+class CacheManagerLocationTests(object):
 
     _targetClass = None
 
@@ -76,7 +75,6 @@ class CacheManagerLocationTests(CopySupportTestBase):
         CopySupportTestBase.setUp(self)
 
     def tearDown(self):
-
         noSecurityManager()
         SecurityManager.setSecurityPolicy(self.oldPolicy)
         del self.oldPolicy
@@ -116,18 +114,13 @@ class CacheManagerLocationTests(CopySupportTestBase):
         self.assertNotEqual(old_cache, new_cache)
 
 
-class AcceleratedHTTPCacheManagerLocationTests(CacheManagerLocationTests):
+class AcceleratedHTTPCacheManagerLocationTests(
+        CacheManagerLocationTests, CopySupportTestBase):
 
     _targetClass = AcceleratedHTTPCacheManager
 
 
-class RamCacheManagerLocationTests(CacheManagerLocationTests):
+class RamCacheManagerLocationTests(
+        CacheManagerLocationTests, CopySupportTestBase):
 
     _targetClass = RAMCacheManager
-
-
-def test_suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(AcceleratedHTTPCacheManagerLocationTests))
-    suite.addTest(unittest.makeSuite(RamCacheManagerLocationTests))
-    return suite

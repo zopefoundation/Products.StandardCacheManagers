@@ -15,6 +15,7 @@ RAM cache manager --
   Caches the results of method calls in RAM.
 '''
 from cgi import escape
+from operator import itemgetter
 from thread import allocate_lock
 import time
 
@@ -36,13 +37,13 @@ except ImportError:
 _marker = []  # Create a new marker object.
 
 
-class CacheException (Exception):
+class CacheException(Exception):
     '''
     A cache-related exception.
     '''
 
 
-class CacheEntry:
+class CacheEntry(object):
     '''
     Represents a cached value.
     '''
@@ -58,13 +59,12 @@ class CacheEntry:
             #   caching objects with references to persistent objects
             #   When we do, nasty persistency errors are likely
             #   to occur ("shouldn't load data while connection is closed").
-            #self.size = len(dumps(index)) + len(dumps(data))
             sizer = _ByteCounter()
             pickler = Pickler(sizer, HIGHEST_PROTOCOL)
             pickler.dump(index)
             pickler.dump(data)
             self.size = sizer.getCount()
-        except:
+        except Exception:
             raise CacheException('The data for the cache is not pickleable.')
         self.created = time.time()
         self.data = data
@@ -72,7 +72,7 @@ class CacheEntry:
         self.access_count = 0
 
 
-class ObjectCacheEntries:
+class ObjectCacheEntries(object):
     '''
     Represents the cache for one Zope object.
     '''
@@ -128,7 +128,7 @@ class ObjectCacheEntries:
             pass
 
 
-class RAMCache (Cache):
+class RAMCache(Cache):
     # Note the need to take thread safety into account.
     # Also note that objects of this class are not persistent,
     # nor do they make use of acquisition.
@@ -337,7 +337,7 @@ caches = {}
 PRODUCT_DIR = __name__.split('.')[-2]
 
 
-class RAMCacheManager (CacheManager, SimpleItem):
+class RAMCacheManager(CacheManager, SimpleItem):
     """Manage a RAMCache, which stores rendered data in RAM.
 
     This is intended to be used as a low-level cache for
@@ -373,7 +373,7 @@ class RAMCacheManager (CacheManager, SimpleItem):
             'cleanup_interval': 300,
             'request_vars': ('AUTHENTICATED_USER', ),
             'max_age': 3600,
-            }
+        }
         self._resetCacheId()
 
     def getId(self):
@@ -423,7 +423,7 @@ class RAMCacheManager (CacheManager, SimpleItem):
             'cleanup_interval': int(settings['cleanup_interval']),
             'request_vars': tuple(request_vars),
             'max_age': int(settings['max_age']),
-            }
+        }
         cache = self.ZCacheManager_getCache()
         cache.initSettings(self._settings)
         if REQUEST is not None:
@@ -453,10 +453,7 @@ class RAMCacheManager (CacheManager, SimpleItem):
         c = self.ZCacheManager_getCache()
         rval = c.getCacheReport()
         if sort_by:
-            rval.sort(lambda e1, e2, sort_by=sort_by:
-                      cmp(e1[sort_by], e2[sort_by]))
-            if sort_reverse:
-                rval.reverse()
+            rval.sort(key=itemgetter(sort_by), reverse=sort_reverse)
         return rval
 
     security.declareProtected(view_management_screens, 'sort_link')
@@ -490,7 +487,7 @@ class RAMCacheManager (CacheManager, SimpleItem):
 InitializeClass(RAMCacheManager)
 
 
-class _ByteCounter:
+class _ByteCounter(object):
     '''auxiliary file like class which just counts the bytes written.'''
     _count = 0
 

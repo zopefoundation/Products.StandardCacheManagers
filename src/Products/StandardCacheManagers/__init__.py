@@ -17,18 +17,20 @@ Some standard Zope cache managers.
 import RAMCacheManager
 import AcceleratedHTTPCacheManager
 
+
 def initialize(context):
     context.registerClass(
         RAMCacheManager.RAMCacheManager,
-        constructors = (RAMCacheManager.manage_addRAMCacheManagerForm,
-                        RAMCacheManager.manage_addRAMCacheManager),
+        constructors=(RAMCacheManager.manage_addRAMCacheManagerForm,
+                      RAMCacheManager.manage_addRAMCacheManager),
         icon="cache.gif"
-        )
+    )
 
     context.registerClass(
         AcceleratedHTTPCacheManager.AcceleratedHTTPCacheManager,
-        constructors = (
-        AcceleratedHTTPCacheManager.manage_addAcceleratedHTTPCacheManagerForm,
-        AcceleratedHTTPCacheManager.manage_addAcceleratedHTTPCacheManager),
+        constructors=(
+            AcceleratedHTTPCacheManager.manage_addAcceleratedHTTPCacheManagerForm,  # NOQA
+            AcceleratedHTTPCacheManager.manage_addAcceleratedHTTPCacheManager,
+        ),
         icon="cache.gif"
-        )
+    )

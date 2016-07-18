@@ -19,6 +19,7 @@ Accelerated HTTP cache manager --
 from cgi import escape
 import httplib
 import logging
+from operator import itemgetter
 import socket
 import time
 from urllib import quote
@@ -36,7 +37,7 @@ from OFS.SimpleItem import SimpleItem
 logger = logging.getLogger('Zope.AcceleratedHTTPCacheManager')
 
 
-class AcceleratedHTTPCache (Cache):
+class AcceleratedHTTPCache(Cache):
     # Note the need to take thread safety into account.
     # Also note that objects of this class are not persistent,
     # nor do they use acquisition.
@@ -96,9 +97,9 @@ class AcceleratedHTTPCache (Cache):
                     # This better not hang. I wish httplib gave us
                     # control of timeouts.
                 except socket.gaierror:
-                    msg = 'socket.gaierror: maybe the server ' + \
-                          'at %s is down, or the cache manager ' + \
-                          'is misconfigured?'
+                    msg = ('socket.gaierror: maybe the server '
+                           'at %s is down, or the cache manager '
+                           'is misconfigured?')
                     logger.error(msg % url)
                     continue
                 r = h.getresponse()
@@ -135,8 +136,8 @@ class AcceleratedHTTPCache (Cache):
         if not anon and self.anonymous_only:
             return
         # Set HTTP Expires and Cache-Control headers
-        seconds=self.interval
-        expires=rfc1123_date(time.time() + seconds)
+        seconds = self.interval
+        expires = rfc1123_date(time.time() + seconds)
         RESPONSE.setHeader('Last-Modified', rfc1123_date(time.time()))
         RESPONSE.setHeader('Cache-Control', 'max-age=%d' % seconds)
         RESPONSE.setHeader('Expires', expires)
@@ -146,8 +147,7 @@ caches = {}
 PRODUCT_DIR = __name__.split('.')[-2]
 
 
-class AcceleratedHTTPCacheManager (CacheManager, SimpleItem):
-    ' '
+class AcceleratedHTTPCacheManager(CacheManager, SimpleItem):
 
     security = ClassSecurityInfo()
     security.setPermissionDefault('Change cache managers', ('Manager', ))
@@ -241,10 +241,7 @@ class AcceleratedHTTPCacheManager (CacheManager, SimpleItem):
                          'anon': anon,
                          'auth': auth})
         if sort_by:
-            rval.sort(lambda e1, e2, sort_by=sort_by:
-                      cmp(e1[sort_by], e2[sort_by]))
-            if sort_reverse:
-                rval.reverse()
+            rval.sort(key=itemgetter(sort_by), reverse=sort_reverse)
         return rval
 
     security.declareProtected(view_management_screens, 'sort_link')

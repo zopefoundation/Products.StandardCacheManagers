@@ -15,11 +15,14 @@
 """
 
 import unittest
-from Products.StandardCacheManagers.AcceleratedHTTPCacheManager \
-     import AcceleratedHTTPCache, AcceleratedHTTPCacheManager
+
+from Products.StandardCacheManagers.AcceleratedHTTPCacheManager import (
+    AcceleratedHTTPCache,
+    AcceleratedHTTPCacheManager,
+)
 
 
-class DummyObject:
+class DummyObject(object):
 
     def __init__(self, path='/path/to/object', urlpath=None):
         self.path = path
@@ -35,7 +38,7 @@ class DummyObject:
         return self.urlpath
 
 
-class MockResponse:
+class MockResponse(object):
     status = '200'
     reason = "who knows, I'm just a mock"
 
@@ -45,7 +48,7 @@ def MockConnectionClassFactory():
     # and a reference to a data structure where it logs requests.
     request_log = []
 
-    class MockConnection:
+    class MockConnection(object):
         # Minimal replacement for httplib.HTTPConnection.
         def __init__(self, host):
             self.host = host
@@ -55,6 +58,7 @@ def MockConnectionClassFactory():
             self.request_log.append({'method': method,
                                      'host': self.host,
                                      'path': path})
+
         def getresponse(self):
             return MockResponse()
 
@@ -141,10 +145,3 @@ class CacheManagerTests(unittest.TestCase):
         self.assert_('anonymous_only' in settings.keys())
         self.assert_('interval' in settings.keys())
         self.assert_('notify_urls' in settings.keys())
-
-
-def test_suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(AcceleratedHTTPCacheTests))
-    suite.addTest(unittest.makeSuite(CacheManagerTests))
-    return suite
