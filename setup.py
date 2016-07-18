@@ -15,7 +15,7 @@
 from setuptools import setup, find_packages
 
 setup(name='Products.StandardCacheManagers',
-      version='3.0.dev0',
+      version='3.0',
       url='http://pypi.python.org/pypi/Products.StandardCacheManagers',
       license='ZPL 2.1',
       description="Cache managers for Zope 2.",
