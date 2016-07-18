@@ -32,5 +32,3 @@ def initialize(context):
         AcceleratedHTTPCacheManager.manage_addAcceleratedHTTPCacheManager),
         icon="cache.gif"
         )
-
-    context.registerHelp()

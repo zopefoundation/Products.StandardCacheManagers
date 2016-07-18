@@ -153,11 +153,9 @@ class AcceleratedHTTPCacheManager (CacheManager, SimpleItem):
     security.setPermissionDefault('Change cache managers', ('Manager', ))
 
     manage_options = (
-        {'label': 'Properties', 'action': 'manage_main',
-         'help': (PRODUCT_DIR, 'Accel.stx')},
-        {'label': 'Statistics', 'action': 'manage_stats',
-         'help': (PRODUCT_DIR, 'Accel.stx')},
-        ) + CacheManager.manage_options + SimpleItem.manage_options
+        {'label': 'Properties', 'action': 'manage_main'},
+        {'label': 'Statistics', 'action': 'manage_stats'},
+    ) + CacheManager.manage_options + SimpleItem.manage_options
 
     meta_type = 'Accelerated HTTP Cache Manager'
 

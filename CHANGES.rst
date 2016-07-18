@@ -4,6 +4,7 @@ Changelog
 3.0 (unreleased)
 ----------------
 
+- Remove HelpSys support.
 
 2.13.1 (2014-09-14)
 -------------------
