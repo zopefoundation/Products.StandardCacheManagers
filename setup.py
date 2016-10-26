@@ -15,7 +15,7 @@
 from setuptools import setup, find_packages
 
 setup(name='Products.StandardCacheManagers',
-      version='3.0.1.dev0',
+      version='4.0.dev0',
       url='http://pypi.python.org/pypi/Products.StandardCacheManagers',
       license='ZPL 2.1',
       description="Cache managers for Zope 2.",
@@ -41,7 +41,7 @@ setup(name='Products.StandardCacheManagers',
           'setuptools',
           'AccessControl',
           'transaction',
-          'Zope2 >= 2.13.0a1',
+          'Zope2 >= 4.0a1',
           'zope.component',
       ],
       include_package_data=True,
