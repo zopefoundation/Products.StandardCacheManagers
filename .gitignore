@@ -3,6 +3,7 @@ build
 dist
 lib
 parts
+src
 
 *.dll
 *.pyc
@@ -12,3 +13,4 @@ develop-eggs/
 eggs/
 *.egg-info
 .installed.cfg
+.mr.developer.cfg
