@@ -39,6 +39,7 @@ setup(name='Products.StandardCacheManagers',
       ],
       install_requires=[
           'setuptools',
+          'six',
           'AccessControl',
           'transaction',
           'Zope2 >= 4.0a1',

@@ -16,7 +16,7 @@ RAM cache manager --
 '''
 from cgi import escape
 from operator import itemgetter
-from thread import allocate_lock
+from six.moves._thread import allocate_lock
 import time
 
 from AccessControl.class_init import InitializeClass

@@ -17,13 +17,13 @@ Accelerated HTTP cache manager --
 '''
 
 from cgi import escape
-import httplib
 import logging
 from operator import itemgetter
+from six.moves.http_client import HTTPConnection
+from six.moves.urllib.parse import quote
+from six.moves.urllib.parse import urlparse
 import socket
 import time
-from urllib import quote
-import urlparse
 
 from AccessControl.class_init import InitializeClass
 from AccessControl.Permissions import view_management_screens
@@ -42,7 +42,7 @@ class AcceleratedHTTPCache(Cache):
     # Also note that objects of this class are not persistent,
     # nor do they use acquisition.
 
-    connection_factory = httplib.HTTPConnection
+    connection_factory = HTTPConnection
 
     def __init__(self):
         self.hit_counts = {}
@@ -84,7 +84,7 @@ class AcceleratedHTTPCache(Cache):
             else:
                 u = 'http://' + url
             (scheme, host, path, params, query,
-             fragment) = urlparse.urlparse(u)
+             fragment) = urlparse(u)
             if path.lower().startswith('/http://'):
                     path = path.lstrip('/')
             for ob_path in purge_paths:

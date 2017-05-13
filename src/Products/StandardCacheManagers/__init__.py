@@ -14,8 +14,8 @@
 Some standard Zope cache managers.
 '''
 
-import RAMCacheManager
-import AcceleratedHTTPCacheManager
+from . import RAMCacheManager
+from . import AcceleratedHTTPCacheManager
 
 
 def initialize(context):

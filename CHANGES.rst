@@ -6,6 +6,8 @@ Changelog
 
 - Require Zope 4.
 
+- Python 3-compatibility
+
 3.0 (2016-07-18)
 ----------------
 
