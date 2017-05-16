@@ -13,3 +13,4 @@ eggs/
 *.egg-info
 .installed.cfg
 .mr.developer.cfg
+.tox
