@@ -1,6 +1,7 @@
 include *.cfg
 include *.rst
 include *.txt
+exclude .*.cfg
 
 recursive-include src *
 
