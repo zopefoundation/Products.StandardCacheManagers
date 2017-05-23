@@ -4,6 +4,8 @@ Changelog
 4.0.1 (unreleased)
 ------------------
 
+- Move version dependency to a released version of Zope
+
 
 4.0.0 (2017-05-13)
 ------------------
