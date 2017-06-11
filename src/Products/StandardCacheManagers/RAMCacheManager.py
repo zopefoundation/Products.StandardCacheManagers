@@ -35,6 +35,8 @@ except ImportError:
     from pickle import HIGHEST_PROTOCOL
 
 _marker = []  # Create a new marker object.
+caches = {}
+PRODUCT_DIR = __name__.split('.')[-2]
 
 
 class CacheException(Exception):
@@ -333,9 +335,6 @@ class RAMCache(Cache):
         finally:
             self.writelock.release()
 
-caches = {}
-PRODUCT_DIR = __name__.split('.')[-2]
-
 
 class RAMCacheManager(CacheManager, SimpleItem):
     """Manage a RAMCache, which stores rendered data in RAM.
@@ -484,6 +483,7 @@ class RAMCacheManager(CacheManager, SimpleItem):
             msg = 'Cache entries invalidated'
             return self.manage_stats(manage_tabs_message=msg)
 
+
 InitializeClass(RAMCacheManager)
 
 
@@ -496,6 +496,7 @@ class _ByteCounter(object):
 
     def getCount(self):
         return self._count
+
 
 manage_addRAMCacheManagerForm = DTMLFile('dtml/addRCM', globals())
 
