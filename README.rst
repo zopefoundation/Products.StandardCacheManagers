@@ -1,7 +1,7 @@
 Overview
 ========
 
-This package provides two cache managers for Zope 2. A RAMCacheManager and an
+This package provides two cache managers for Zope 4. A RAMCacheManager and an
 Accelerated HTTP cache manager, which adds HTTP cache headers to responses.
 
 The following is intended for people interested in the internals of
