@@ -137,11 +137,11 @@ class CacheManagerTests(unittest.TestCase):
     def test_ZCacheManager_getCache(self):
         root, cachemanager = self._makeContext()
         cache = cachemanager.ZCacheManager_getCache()
-        self.assert_(isinstance(cache, AcceleratedHTTPCache))
+        self.assertIsInstance(cache, AcceleratedHTTPCache)
 
     def test_getSettings(self):
         root, cachemanager = self._makeContext()
         settings = cachemanager.getSettings()
-        self.assert_('anonymous_only' in settings.keys())
-        self.assert_('interval' in settings.keys())
-        self.assert_('notify_urls' in settings.keys())
+        self.assertIn('anonymous_only', settings)
+        self.assertIn('interval', settings)
+        self.assertIn('notify_urls', settings)

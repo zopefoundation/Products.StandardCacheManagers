@@ -1,6 +1,7 @@
 bin
 build
 dist
+htmlcov
 lib
 parts
 
@@ -11,6 +12,7 @@ parts
 develop-eggs/
 eggs/
 *.egg-info
+.coverage*
 .installed.cfg
 .mr.developer.cfg
 .tox

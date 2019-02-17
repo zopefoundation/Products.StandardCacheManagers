@@ -14,7 +14,10 @@
 RAM cache manager --
   Caches the results of method calls in RAM.
 '''
-from cgi import escape
+try:
+    from html import escape
+except ImportError:  # Python 2
+    from cgi import escape
 from operator import itemgetter
 from six.moves._thread import allocate_lock
 import time

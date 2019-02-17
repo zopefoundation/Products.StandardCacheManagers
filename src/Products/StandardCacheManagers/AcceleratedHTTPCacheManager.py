@@ -16,7 +16,10 @@ Accelerated HTTP cache manager --
   cache according to a common policy.
 '''
 
-from cgi import escape
+try:
+    from html import escape
+except ImportError:  # Python 2
+    from cgi import escape
 import logging
 from operator import itemgetter
 from six.moves.http_client import HTTPConnection
@@ -86,7 +89,7 @@ class AcceleratedHTTPCache(Cache):
             (scheme, host, path, params, query,
              fragment) = urlparse(u)
             if path.lower().startswith('/http://'):
-                    path = path.lstrip('/')
+                path = path.lstrip('/')
             for ob_path in purge_paths:
                 p = path.rstrip('/') + ob_path
                 h = self.connection_factory(host)

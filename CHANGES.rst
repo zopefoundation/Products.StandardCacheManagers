@@ -4,6 +4,12 @@ Changelog
 4.0.2 (unreleased)
 ------------------
 
+- Specify supported Python versions using ``python_requires`` in setup.py
+
+- Added support for Python 3.7 and 3.8
+
+- Dropped support for Python 3.4 as Zope does not support it anymore
+
 - More PEP8 compliance.
 
 
