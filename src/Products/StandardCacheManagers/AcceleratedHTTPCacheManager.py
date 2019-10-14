@@ -161,6 +161,7 @@ class AcceleratedHTTPCacheManager(CacheManager, SimpleItem):
     ) + CacheManager.manage_options + SimpleItem.manage_options
 
     meta_type = 'Accelerated HTTP Cache Manager'
+    zmi_icon = 'fas fa-forward'
 
     def __init__(self, ob_id):
         self.id = ob_id

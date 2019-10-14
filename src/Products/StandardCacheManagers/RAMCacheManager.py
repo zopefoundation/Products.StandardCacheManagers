@@ -366,6 +366,7 @@ class RAMCacheManager(CacheManager, SimpleItem):
     ) + CacheManager.manage_options + SimpleItem.manage_options
 
     meta_type = 'RAM Cache Manager'
+    zmi_icon = 'fas fa-forward'
 
     def __init__(self, ob_id):
         self.id = ob_id
