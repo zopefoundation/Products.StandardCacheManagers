@@ -1,3 +1,17 @@
+.. image:: https://travis-ci.org/zopefoundation/Products.StandardCacheManagers.svg?branch=master
+    :target: https://travis-ci.org/zopefoundation/Products.StandardCacheManagers
+
+.. image:: https://coveralls.io/repos/github/zopefoundation/Products.StandardCacheManagers/badge.svg?branch=master
+    :target: https://coveralls.io/github/zopefoundation/Products.StandardCacheManagers?branch=master
+
+.. image:: https://img.shields.io/pypi/v/Products.StandardCacheManagers.svg
+    :target: https://pypi.org/project/Products.StandardCacheManagers/
+    :alt: Current version on PyPI
+
+.. image:: https://img.shields.io/pypi/pyversions/Products.StandardCacheManagers.svg
+    :target: https://pypi.org/project/Products.StandardCacheManagers/
+    :alt: Supported Python versions
+
 Overview
 ========
 
