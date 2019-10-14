@@ -1,65 +1,60 @@
 <dtml-var manage_page_header>
 <dtml-var manage_tabs>
 
-<form action="manage_editProps" method="POST">
-<dtml-with getSettings mapping>
-<table cellspacing="0" cellpadding="2" border="0">
-  <tr>
-    <td align="left" valign="top">
-    <div class="form-optional">
-    Title
-    </div>
-    </td>
-    <td align="left" valign="top">
-    <input type="text" name="title" size="40" 
-     value="&dtml-title;" />
-    </td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">
-    <div class="form-label">
-    Interval (seconds)
-    </div>
-    </td>
-    <td align="left" valign="top">
-    <input type="text" name="interval" size="40" 
-     value="&dtml-interval;" />
-    </td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">
-    <div class="form-label">
-    Cache anonymous <br />connections only?
-    </div>
-    </td>
-    <td align="left" valign="top">
-    <input type="checkbox" name="anonymous_only" value="1"<dtml-if 
-     anonymous_only> checked="checked"</dtml-if> />
-    </td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">
-    <div class="form-label">
-    Notify URLs (via PURGE)
-    </div>
-    </td>
-    <td align="left" valign="top">
-    <textarea name="notify_urls:lines" rows="5" cols="30"><dtml-in 
-     notify_urls>&dtml-sequence-item;</dtml-in></textarea>
-    </td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">
-    </td>
-    <td align="left" valign="top">
-    <div class="form-element">
-    <input class="form-element" type="submit" name="submit" 
-     value="Save Changes" /> 
-    </div>
-    </td>
-  </tr>
-</table>
-</dtml-with>
-</form>
+<main class="container-fluid">
+
+  <dtml-with getSettings mapping>
+
+    <form action="manage_editProps" method="POST">
+
+      <div class="form-group row">
+        <label for="title" class="form-label col-sm-3 col-md-2">Title</label>
+        <div class="col-sm-9 col-md-10">
+          <input id="title" class="form-control" type="text" name="title"
+                 value="&dtml-title;" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="interval" class="form-label col-sm-3 col-md-2">
+          Interval (seconds)
+        </label>
+        <div class="col-sm-9 col-md-10">
+          <input id="interval" class="form-control" type="text" name="interval"
+                 value="&dtml-interval;" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="anonymous_only" class="form-label col-sm-3 col-md-2">
+          Cache anonymous connections only?
+        </label>
+        <div class="col-sm-9 col-md-10">
+          <input id="anonymous_only" class="form-control" type="checkbox"
+                 name="anonymous_only" value="1"
+                 <dtml-if anonymous_only> checked="checked"</dtml-if> />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="notify_urls" class="form-label col-sm-3 col-md-2">
+          Notify URLs (via PURGE)
+        </label>
+        <div class="col-sm-9 col-md-10">
+          <textarea name="notify_urls:lines" id="notify_urls"
+                    class="form-control" rows="5"
+                    ><dtml-in notify_urls>&dtml-sequence-item;<dtml-if sequence-end><dtml-else><dtml-var "'\n'"></dtml-if></dtml-in></textarea>
+        </div>
+      </div>
+
+      <div class="zmi-controls">
+        <input class="btn btn-primary" type="submit" name="submit" value="Save" />
+      </div>
+
+    </form>
+
+  </dtml-with>
+
+</main>
 
 <dtml-var manage_page_footer>

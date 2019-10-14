@@ -1,85 +1,77 @@
 <dtml-var manage_page_header>
 <dtml-var manage_tabs>
 
-<p class="form-help">
-  The <em>RAM Cache Manager</em> allows you to cache the result of
-  calling expensive objects, such as Python Scripts and External
-  Methods, in memory. Because it does <em>not</em> cache HTTP headers,
-  caching full web pages is generally not advised.
-</p>
+<main class="container-fluid">
 
-<form action="manage_editProps" method="POST">
-<dtml-with getSettings mapping>
-<table cellspacing="0" cellpadding="2" border="0">
-  <tr>
-    <td align="left" valign="top">
-    <div class="form-optional">
-    Title
-    </div>
-    </td>
-    <td align="left" valign="top">
-    <input type="text" name="title" size="40" 
-     value="&dtml-title;" />
-    </td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">
-    <div class="form-label">
-    REQUEST variables
-    </div>
-    </td>
-    <td align="left" valign="top">
-    <textarea name="request_vars:lines" rows="5" cols="30"><dtml-in
-     request_vars>&dtml-sequence-item;
-</dtml-in></textarea>
-    </td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">
-    <div class="form-label">
-    Threshold entries
-    </div>
-    </td>
-    <td align="left" valign="top">
-    <input type="text" name="threshold" size="40" 
-     value="&dtml-threshold;" />
-    </td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">
-    <div class="form-label">
-    Maximum age of a cache entry (seconds)
-    </div>
-    </td>
-    <td align="left" valign="top">
-    <input type="text" name="max_age" size="40"
-     value="&dtml-max_age;" />
-    </td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">
-    <div class="form-label">
-    Cleanup interval (seconds)
-    </div>
-    </td>
-    <td align="left" valign="top">
-    <input type="text" name="cleanup_interval" size="40" 
-     value="&dtml-cleanup_interval;" />
-    </td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">
-    </td>
-    <td align="left" valign="top">
-    <div class="form-element">
-    <input class="form-element" type="submit" name="submit" 
-     value="Save Changes" /> 
-    </div>
-    </td>
-  </tr>
-</table>
-</dtml-with>
-</form>
+  <p class="form-help">
+    The <em>RAM Cache Manager</em> allows you to cache the result of
+    calling expensive objects, such as Python Scripts and External
+    Methods, in memory. Because it does <em>not</em> cache HTTP headers,
+    caching full web pages is generally not advised.
+  </p>
+
+  <dtml-with getSettings mapping>
+  
+    <form action="manage_editProps" method="POST">
+
+      <div class="form-group row">
+        <label for="title" class="form-label col-sm-3 col-md-2">Title</label>
+        <div class="col-sm-9 col-md-10">
+          <input id="title" class="form-control" type="text" name="title"
+                 value="&dtml-title;" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="request_vars" class="form-label col-sm-3 col-md-2">
+          REQUEST variables
+        </label>
+        <div class="col-sm-9 col-md-10">
+          <textarea name="request_vars:lines" id="request_vars"
+                    class="form-control" rows="5"
+                    ><dtml-in request_vars>&dtml-sequence-item;<dtml-if sequence-end><dtml-else><dtml-var "'\n'"></dtml-if></dtml-in></textarea>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="threshold" class="form-label col-sm-3 col-md-2">
+          Threshold entries
+        </label>
+        <div class="col-sm-9 col-md-10">
+          <input id="threshold" class="form-control" type="text" name="threshold"
+                 value="&dtml-threshold;" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="max_age" class="form-label col-sm-3 col-md-2">
+          Maximum age for cache entries (seconds)
+        </label>
+        <div class="col-sm-9 col-md-10">
+          <input id="max_age" class="form-control" type="text" name="max_age"
+                 value="&dtml-max_age;" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="cleanup_interval" class="form-label col-sm-3 col-md-2">
+          Cleanup interval (seconds)
+        </label>
+        <div class="col-sm-9 col-md-10">
+          <input id="cleanup_interval" class="form-control" type="text"
+                 name="cleanup_interval" value="&dtml-cleanup_interval;" />
+        </div>
+      </div>
+
+      <div class="zmi-controls">
+        <input class="btn btn-primary" type="submit" name="submit" value="Save" />
+      </div>
+
+    </form>
+
+  </dtml-with>
+
+</main>
 
 <dtml-var manage_page_footer>
 
