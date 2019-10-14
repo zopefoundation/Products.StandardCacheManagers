@@ -20,6 +20,7 @@ except ImportError:  # Python 2
     from cgi import escape
 from operator import itemgetter
 from six.moves._thread import allocate_lock
+import six
 import time
 
 from AccessControl.class_init import InitializeClass
@@ -261,6 +262,8 @@ class RAMCache(Cache):
                 size = size + entry.size
                 ac = ac + entry.access_count
                 view = entry.view_name or '<default>'
+                if six.PY3 and isinstance(view, bytes):
+                    view = view.decode('UTF-8')
                 if view not in views:
                     views.append(view)
             views.sort()
