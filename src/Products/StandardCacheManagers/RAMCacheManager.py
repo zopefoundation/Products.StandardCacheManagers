@@ -202,8 +202,8 @@ class RAMCache(Cache):
         """
         self.writelock.acquire()
         try:
-            for p, oc in self.cache.items():
-                for agindex, entry in oc.entries.items():
+            for p, oc in list(self.cache.items()):
+                for agindex, entry in list(oc.entries.items()):
                     if entry.access_count <= threshold_access_count:
                         del oc.entries[agindex]
                 if len(oc.entries) < 1:
@@ -219,8 +219,8 @@ class RAMCache(Cache):
             self.writelock.acquire()
             try:
                 min_created = time.time() - self.max_age
-                for p, oc in self.cache.items():
-                    for agindex, entry in oc.entries.items():
+                for p, oc in list(self.cache.items()):
+                    for agindex, entry in list(oc.entries.items()):
                         if entry.created < min_created:
                             del oc.entries[agindex]
                     if len(oc.entries) < 1:
@@ -236,11 +236,10 @@ class RAMCache(Cache):
         new_count = self.countAllEntries()
         if new_count > self.threshold:
             counters = self.countAccesses()
-            priorities = counters.items()
+            priorities = sorted(counters.items())
             # Remove the least accessed entries until we've reached
             # our target count.
             if len(priorities) > 0:
-                priorities.sort()
                 access_count = 0
                 for access_count, effect in priorities:
                     new_count = new_count - effect
@@ -286,7 +285,7 @@ class RAMCache(Cache):
         # Invalidates all subobjects as well.
         self.writelock.acquire()
         try:
-            for p, oc in self.cache.items():
+            for p, oc in list(self.cache.items()):
                 pp = oc.physical_path
                 if pp[:len(path)] == path:
                     del self.cache[p]
