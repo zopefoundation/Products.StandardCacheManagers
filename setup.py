@@ -16,9 +16,15 @@ from setuptools import setup, find_packages
 
 setup(name='Products.StandardCacheManagers',
       version='4.0.3.dev0',
-      url='http://pypi.python.org/pypi/Products.StandardCacheManagers',
+      url='https://github.com/zopefoundation/Products.StandardCacheManagers',
+      project_urls={
+          'Issue Tracker': ('https://github.com/zopefoundation'
+                            '/Products.StandardCacheManagers/issues'),
+          'Sources': ('https://github.com/zopefoundation'
+                      '/Products.StandardCacheManagers'),
+      },
       license='ZPL 2.1',
-      description="Cache managers for Zope 2.",
+      description="Cache managers for Zope",
       author='Zope Foundation and Contributors',
       author_email='zope-dev@zope.org',
       long_description=(open('README.rst').read() + '\n' +
@@ -29,7 +35,8 @@ setup(name='Products.StandardCacheManagers',
       classifiers=[
           "Development Status :: 6 - Mature",
           "Environment :: Web Environment",
-          "Framework :: Zope2",
+          "Framework :: Zope",
+          "Framework :: Zope :: 4",
           "License :: OSI Approved :: Zope Public License",
           "Operating System :: OS Independent",
           "Programming Language :: Python",
