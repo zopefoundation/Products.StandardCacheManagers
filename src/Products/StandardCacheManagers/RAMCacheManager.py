@@ -385,15 +385,16 @@ class RAMCacheManager(CacheManager, SimpleItem):
         ' '
         return self.id
 
-    security.declarePrivate('_remove_data')
+    @security.private
     def _remove_data(self):
         caches.pop(self.__cacheid, None)
 
-    security.declarePrivate('_resetCacheId')
+    @security.private
     def _resetCacheId(self):
         self.__cacheid = '%s_%f' % (id(self), time.time())
 
     ZCacheManager_getCache__roles__ = ()
+
     def ZCacheManager_getCache(self):
         cacheid = self.__cacheid
         try:
@@ -404,7 +405,7 @@ class RAMCacheManager(CacheManager, SimpleItem):
             caches[cacheid] = cache
             return cache
 
-    security.declareProtected(view_management_screens, 'getSettings')
+    @security.protected(view_management_screens)
     def getSettings(self):
         'Returns the current cache settings.'
         res = self._settings.copy()
@@ -412,10 +413,11 @@ class RAMCacheManager(CacheManager, SimpleItem):
             res['max_age'] = 0
         return res
 
-    security.declareProtected(view_management_screens, 'manage_main')
+    security.declareProtected(view_management_screens,  # NOQA: D001
+                              'manage_main')
     manage_main = DTMLFile('dtml/propsRCM', globals())
 
-    security.declareProtected('Change cache managers', 'manage_editProps')
+    @security.protected('Change cache managers')
     def manage_editProps(self, title, settings=None, REQUEST=None):
         'Changes the cache settings.'
         if settings is None:
@@ -435,7 +437,8 @@ class RAMCacheManager(CacheManager, SimpleItem):
             return self.manage_main(
                 self, REQUEST, manage_tabs_message='Properties changed.')
 
-    security.declareProtected(view_management_screens, 'manage_stats')
+    security.declareProtected(view_management_screens,  # NOQA: D001
+                              'manage_stats')
     manage_stats = DTMLFile('dtml/statsRCM', globals())
 
     def _getSortInfo(self):
@@ -448,7 +451,7 @@ class RAMCacheManager(CacheManager, SimpleItem):
         sort_reverse = int(req.get('sort_reverse', 1))
         return sort_by, sort_reverse
 
-    security.declareProtected(view_management_screens, 'getCacheReport')
+    @security.protected(view_management_screens)
     def getCacheReport(self):
         """
         Returns the list of objects in the cache, sorted according to
@@ -461,7 +464,7 @@ class RAMCacheManager(CacheManager, SimpleItem):
             rval.sort(key=itemgetter(sort_by), reverse=sort_reverse)
         return rval
 
-    security.declareProtected(view_management_screens, 'sort_link')
+    @security.protected(view_management_screens)
     def sort_link(self, name, id):
         """
         Utility for generating a sort link.
@@ -474,7 +477,7 @@ class RAMCacheManager(CacheManager, SimpleItem):
         url = url + '&sort_reverse=' + (newsr and '1' or '0')
         return '<a href="%s">%s</a>' % (escape(url, 1), escape(name))
 
-    security.declareProtected('Change cache managers', 'manage_invalidate')
+    @security.protected('Change cache managers')
     def manage_invalidate(self, paths, REQUEST=None):
         """ ZMI helper to invalidate an entry """
         for path in paths:

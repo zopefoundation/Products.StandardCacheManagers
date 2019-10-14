@@ -14,6 +14,12 @@
 
 from setuptools import setup, find_packages
 
+
+def _read(fname):
+    with open(fname) as fp:
+        return fp.read()
+
+
 setup(name='Products.StandardCacheManagers',
       version='4.0.3.dev0',
       url='https://github.com/zopefoundation/Products.StandardCacheManagers',
@@ -27,8 +33,7 @@ setup(name='Products.StandardCacheManagers',
       description="Cache managers for Zope",
       author='Zope Foundation and Contributors',
       author_email='zope-dev@zope.org',
-      long_description=(open('README.rst').read() + '\n' +
-                        open('CHANGES.rst').read()),
+      long_description=_read('README.rst') + '\n' + _read('CHANGES.rst'),
       packages=find_packages('src'),
       namespace_packages=['Products'],
       package_dir={'': 'src'},

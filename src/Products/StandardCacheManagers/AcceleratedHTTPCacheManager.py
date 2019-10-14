@@ -175,15 +175,15 @@ class AcceleratedHTTPCacheManager(CacheManager, SimpleItem):
         ' '
         return self.id
 
-    security.declarePrivate('_remove_data')
+    @security.private
     def _remove_data(self):
         caches.pop(self.__cacheid, None)
 
-    security.declarePrivate('_resetCacheId')
+    @security.private
     def _resetCacheId(self):
         self.__cacheid = '%s_%f' % (id(self), time.time())
 
-    security.declarePrivate('ZCacheManager_getCache')
+    @security.private
     def ZCacheManager_getCache(self):
         cacheid = self.__cacheid
         try:
@@ -194,15 +194,16 @@ class AcceleratedHTTPCacheManager(CacheManager, SimpleItem):
             caches[cacheid] = cache
             return cache
 
-    security.declareProtected(view_management_screens, 'getSettings')
+    @security.protected(view_management_screens)
     def getSettings(self):
         ' '
         return self._settings.copy()  # Don't let UI modify it.
 
-    security.declareProtected(view_management_screens, 'manage_main')
+    security.declareProtected(view_management_screens,  # NOQA: D001
+                              'manage_main')
     manage_main = DTMLFile('dtml/propsAccel', globals())
 
-    security.declareProtected('Change cache managers', 'manage_editProps')
+    @security.protected('Change cache managers')
     def manage_editProps(self, title, settings=None, REQUEST=None):
         ' '
         if settings is None:
@@ -218,7 +219,8 @@ class AcceleratedHTTPCacheManager(CacheManager, SimpleItem):
             return self.manage_main(
                 self, REQUEST, manage_tabs_message='Properties changed.')
 
-    security.declareProtected(view_management_screens, 'manage_stats')
+    security.declareProtected(view_management_screens,  # NOQA: D001
+                              'manage_stats')
     manage_stats = DTMLFile('dtml/statsAccel', globals())
 
     def _getSortInfo(self):
@@ -231,7 +233,7 @@ class AcceleratedHTTPCacheManager(CacheManager, SimpleItem):
         sort_reverse = int(req.get('sort_reverse', 1))
         return sort_by, sort_reverse
 
-    security.declareProtected(view_management_screens, 'getCacheReport')
+    @security.protected(view_management_screens)
     def getCacheReport(self):
         """
         Returns the list of objects in the cache, sorted according to
@@ -248,7 +250,7 @@ class AcceleratedHTTPCacheManager(CacheManager, SimpleItem):
             rval.sort(key=itemgetter(sort_by), reverse=sort_reverse)
         return rval
 
-    security.declareProtected(view_management_screens, 'sort_link')
+    @security.protected(view_management_screens)
     def sort_link(self, name, id):
         """
         Utility for generating a sort link.

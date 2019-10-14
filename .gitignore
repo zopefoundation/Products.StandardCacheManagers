@@ -1,3 +1,4 @@
+_build
 bin
 build
 dist
@@ -18,4 +19,5 @@ eggs/
 .installed.cfg
 .mr.developer.cfg
 .tox
+coverage.xml
 pyvenv.cfg
