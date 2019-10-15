@@ -14,25 +14,22 @@
 """ Unit tests for AcceleratedCacheManager module.
 """
 
+import Products.StandardCacheManagers
 import transaction
 import zope.component
-
-from zope.component import testing as componenttesting
-from zope.component import eventtesting
-
 from AccessControl import SecurityManager
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
 from OFS.tests.testCopySupport import CopySupportTestBase
 from OFS.tests.testCopySupport import UnitTestSecurityPolicy
 from OFS.tests.testCopySupport import UnitTestUser
-
-from Zope2.App import zcml
+from Products.StandardCacheManagers.AcceleratedHTTPCacheManager import \
+    AcceleratedHTTPCacheManager
 from Products.StandardCacheManagers.RAMCacheManager import RAMCacheManager
-from Products.StandardCacheManagers.AcceleratedHTTPCacheManager import (
-    AcceleratedHTTPCacheManager,
-)
-import Products.StandardCacheManagers
+from Zope2.App import zcml
+from zope.component import eventtesting
+from zope.component import testing as componenttesting
+
 
 CACHE_META_TYPES = tuple(dict(name=instance_class.meta_type,
                               action='unused_constructor_name',

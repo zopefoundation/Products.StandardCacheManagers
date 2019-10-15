@@ -4,6 +4,12 @@ Changelog
 4.0.3 (unreleased)
 ------------------
 
+- more package cleanups
+
+- cleaned up ZMI views for Zope 4
+
+- fixed several errors due to changed behavior in Python 3
+
 
 4.0.2 (2019-02-17)
 ------------------

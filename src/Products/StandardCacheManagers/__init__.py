@@ -14,8 +14,8 @@
 Some standard Zope cache managers.
 '''
 
-from . import RAMCacheManager
 from . import AcceleratedHTTPCacheManager
+from . import RAMCacheManager
 
 
 def initialize(context):
@@ -23,8 +23,7 @@ def initialize(context):
         RAMCacheManager.RAMCacheManager,
         constructors=(RAMCacheManager.manage_addRAMCacheManagerForm,
                       RAMCacheManager.manage_addRAMCacheManager),
-        icon="cache.gif"
-    )
+        icon="cache.gif")
 
     context.registerClass(
         AcceleratedHTTPCacheManager.AcceleratedHTTPCacheManager,
@@ -32,5 +31,4 @@ def initialize(context):
             AcceleratedHTTPCacheManager.manage_addAcceleratedHTTPCacheManagerForm,  # NOQA
             AcceleratedHTTPCacheManager.manage_addAcceleratedHTTPCacheManager,
         ),
-        icon="cache.gif"
-    )
+        icon="cache.gif")

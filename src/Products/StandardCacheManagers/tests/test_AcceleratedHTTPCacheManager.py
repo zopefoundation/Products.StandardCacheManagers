@@ -16,10 +16,10 @@
 
 import unittest
 
-from Products.StandardCacheManagers.AcceleratedHTTPCacheManager import (
-    AcceleratedHTTPCache,
-    AcceleratedHTTPCacheManager,
-)
+from Products.StandardCacheManagers.AcceleratedHTTPCacheManager import \
+    AcceleratedHTTPCache
+from Products.StandardCacheManagers.AcceleratedHTTPCacheManager import \
+    AcceleratedHTTPCacheManager
 
 
 class DummyObject(object):
@@ -123,7 +123,7 @@ class CacheManagerTests(unittest.TestCase):
     def _makeContext(self):
         from OFS.Folder import Folder
         root = Folder()
-        root.getPhysicalPath = lambda: ('', 'some_path', )
+        root.getPhysicalPath = lambda: ('', 'some_path')
         cm_id = 'http_cache'
         manager = self._makeOne(cm_id)
         root._setObject(cm_id, manager)

@@ -21,12 +21,13 @@ try:
 except ImportError:  # Python 2
     from cgi import escape
 import logging
+import socket
+import time
 from operator import itemgetter
+
 from six.moves.http_client import HTTPConnection
 from six.moves.urllib.parse import quote
 from six.moves.urllib.parse import urlparse
-import socket
-import time
 
 from AccessControl.class_init import InitializeClass
 from AccessControl.Permissions import view_management_screens
@@ -36,6 +37,7 @@ from App.special_dtml import DTMLFile
 from OFS.Cache import Cache
 from OFS.Cache import CacheManager
 from OFS.SimpleItem import SimpleItem
+
 
 logger = logging.getLogger('Zope.AcceleratedHTTPCacheManager')
 

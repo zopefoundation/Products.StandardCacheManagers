@@ -18,10 +18,11 @@ try:
     from html import escape
 except ImportError:  # Python 2
     from cgi import escape
-from operator import itemgetter
-from six.moves._thread import allocate_lock
-import six
 import time
+from operator import itemgetter
+
+import six
+from six.moves._thread import allocate_lock
 
 from AccessControl.class_init import InitializeClass
 from AccessControl.Permissions import view_management_screens
@@ -30,6 +31,7 @@ from App.special_dtml import DTMLFile
 from OFS.Cache import Cache
 from OFS.Cache import CacheManager
 from OFS.SimpleItem import SimpleItem
+
 
 try:
     from cPickle import Pickler
