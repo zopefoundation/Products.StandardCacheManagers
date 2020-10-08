@@ -18,6 +18,7 @@ try:
     from html import escape
 except ImportError:  # Python 2
     from cgi import escape
+
 import time
 from operator import itemgetter
 
@@ -34,11 +35,11 @@ from OFS.SimpleItem import SimpleItem
 
 
 try:
-    from cPickle import Pickler
     from cPickle import HIGHEST_PROTOCOL
+    from cPickle import Pickler
 except ImportError:
-    from pickle import Pickler
     from pickle import HIGHEST_PROTOCOL
+    from pickle import Pickler
 
 _marker = []  # Create a new marker object.
 caches = {}
