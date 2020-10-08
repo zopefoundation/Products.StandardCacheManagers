@@ -14,6 +14,8 @@ Changelog
 
 - fixed several errors due to changed behavior in Python 3
 
+- update `isort` to version 5.
+
 
 4.0.2 (2019-02-17)
 ------------------
