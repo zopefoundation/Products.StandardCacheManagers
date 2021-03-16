@@ -1,8 +1,10 @@
 Changelog
 =========
 
-4.0.4 (unreleased)
+4.1.0 (unreleased)
 ------------------
+
+- add support for Python 3.9
 
 
 4.0.3 (2019-10-14)
