@@ -22,7 +22,7 @@ def _read(fname):
 
 
 setup(name='Products.StandardCacheManagers',
-      version='4.1.0.dev0',
+      version='4.1.0',
       url='https://github.com/zopefoundation/Products.StandardCacheManagers',
       project_urls={
           'Issue Tracker': ('https://github.com/zopefoundation'
