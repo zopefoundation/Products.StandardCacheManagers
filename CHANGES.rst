@@ -4,6 +4,10 @@ Changelog
 4.1.1 (unreleased)
 ------------------
 
+- fix DeprecationWarning for rfc1123_date
+  (`#8
+  <https://github.com/zopefoundation/Products.StandardCacheManagers/issues/8>`_)
+
 
 4.1.0 (2021-03-16)
 ------------------

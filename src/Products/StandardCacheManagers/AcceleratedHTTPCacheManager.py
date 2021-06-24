@@ -32,11 +32,11 @@ from six.moves.urllib.parse import urlparse
 from AccessControl.class_init import InitializeClass
 from AccessControl.Permissions import view_management_screens
 from AccessControl.SecurityInfo import ClassSecurityInfo
-from App.Common import rfc1123_date
 from App.special_dtml import DTMLFile
 from OFS.Cache import Cache
 from OFS.Cache import CacheManager
 from OFS.SimpleItem import SimpleItem
+from zope.datetime import rfc1123_date
 
 
 logger = logging.getLogger('Zope.AcceleratedHTTPCacheManager')
