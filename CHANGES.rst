@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.1.1 (unreleased)
+4.1.1 (2021-07-02)
 ------------------
 
 - fix DeprecationWarning for rfc1123_date
