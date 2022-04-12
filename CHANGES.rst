@@ -1,9 +1,10 @@
 Changelog
 =========
 
-4.1.2 (unreleased)
-------------------
+4.2 (unreleased)
+----------------
 
+- Add support for Python 3.10.
 
 4.1.1 (2021-07-02)
 ------------------
@@ -16,19 +17,19 @@ Changelog
 4.1.0 (2021-03-16)
 ------------------
 
-- add support for Python 3.9
+- Add support for Python 3.9.
 
 
 4.0.3 (2019-10-14)
 ------------------
 
-- more package cleanups
+- More package cleanups.
 
-- cleaned up ZMI views for Zope 4
+- Cleaned up ZMI views for Zope 4.
 
-- fixed several errors due to changed behavior in Python 3
+- Fixed several errors due to changed behavior in Python 3.
 
-- update `isort` to version 5.
+- Update `isort` to version 5.
 
 
 4.0.2 (2019-02-17)
