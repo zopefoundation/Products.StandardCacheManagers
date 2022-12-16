@@ -1,10 +1,13 @@
 Changelog
 =========
 
-4.2 (unreleased)
+4.2 (2022-12-16)
 ----------------
 
-- Add support for Python 3.10.
+- Fix insidious buildout configuration bug for tests against Zope 4.
+
+- Add support for Python 3.10 and 3.11.
+
 
 4.1.1 (2021-07-02)
 ------------------
