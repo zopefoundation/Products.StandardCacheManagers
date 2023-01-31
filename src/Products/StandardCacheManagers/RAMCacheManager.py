@@ -14,16 +14,12 @@
 RAM cache manager --
   Caches the results of method calls in RAM.
 '''
-try:
-    from html import escape
-except ImportError:  # Python 2
-    from cgi import escape
-
 import time
+from _thread import allocate_lock
+from html import escape
 from operator import itemgetter
-
-import six
-from six.moves._thread import allocate_lock
+from pickle import HIGHEST_PROTOCOL
+from pickle import Pickler
 
 from AccessControl.class_init import InitializeClass
 from AccessControl.Permissions import view_management_screens
@@ -33,13 +29,6 @@ from OFS.Cache import Cache
 from OFS.Cache import CacheManager
 from OFS.SimpleItem import SimpleItem
 
-
-try:
-    from cPickle import HIGHEST_PROTOCOL
-    from cPickle import Pickler
-except ImportError:
-    from pickle import HIGHEST_PROTOCOL
-    from pickle import Pickler
 
 _marker = []  # Create a new marker object.
 caches = {}
@@ -52,7 +41,7 @@ class CacheException(Exception):
     '''
 
 
-class CacheEntry(object):
+class CacheEntry:
     '''
     Represents a cached value.
     '''
@@ -81,7 +70,7 @@ class CacheEntry(object):
         self.access_count = 0
 
 
-class ObjectCacheEntries(object):
+class ObjectCacheEntries:
     '''
     Represents the cache for one Zope object.
     '''
@@ -264,7 +253,7 @@ class RAMCache(Cache):
                 size = size + entry.size
                 ac = ac + entry.access_count
                 view = entry.view_name or '<default>'
-                if six.PY3 and isinstance(view, bytes):
+                if isinstance(view, bytes):
                     view = view.decode('UTF-8')
                 if view not in views:
                     views.append(view)
@@ -394,7 +383,7 @@ class RAMCacheManager(CacheManager, SimpleItem):
 
     @security.private
     def _resetCacheId(self):
-        self.__cacheid = '%s_%f' % (id(self), time.time())
+        self.__cacheid = f'{id(self)}_{time.time():f}'
 
     ZCacheManager_getCache__roles__ = ()
 
@@ -478,7 +467,7 @@ class RAMCacheManager(CacheManager, SimpleItem):
         if sort_by == id:
             newsr = not sort_reverse
         url = url + '&sort_reverse=' + (newsr and '1' or '0')
-        return '<a href="%s">%s</a>' % (escape(url, 1), escape(name))
+        return '<a href="{}">{}</a>'.format(escape(url, 1), escape(name))
 
     @security.protected('Change cache managers')
     def manage_invalidate(self, paths, REQUEST=None):
@@ -499,7 +488,7 @@ class RAMCacheManager(CacheManager, SimpleItem):
 InitializeClass(RAMCacheManager)
 
 
-class _ByteCounter(object):
+class _ByteCounter:
     '''auxiliary file like class which just counts the bytes written.'''
     _count = 0
 

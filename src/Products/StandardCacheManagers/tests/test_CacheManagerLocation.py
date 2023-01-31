@@ -39,7 +39,7 @@ CACHE_META_TYPES = tuple(dict(name=instance_class.meta_type,
                                                 AcceleratedHTTPCacheManager))
 
 
-class CacheManagerLocationTests(object):
+class CacheManagerLocationTests:
 
     _targetClass = None
 
