@@ -22,7 +22,7 @@ from Products.StandardCacheManagers.AcceleratedHTTPCacheManager import \
     AcceleratedHTTPCacheManager
 
 
-class DummyObject(object):
+class DummyObject:
 
     def __init__(self, path='/path/to/object', urlpath=None):
         self.path = path
@@ -38,7 +38,7 @@ class DummyObject(object):
         return self.urlpath
 
 
-class MockResponse(object):
+class MockResponse:
     status = '200'
     reason = "who knows, I'm just a mock"
 
@@ -48,7 +48,7 @@ def MockConnectionClassFactory():
     # and a reference to a data structure where it logs requests.
     request_log = []
 
-    class MockConnection(object):
+    class MockConnection:
         # Minimal replacement for httplib.HTTPConnection.
         def __init__(self, host):
             self.host = host

@@ -16,18 +16,14 @@ Accelerated HTTP cache manager --
   cache according to a common policy.
 '''
 
-try:
-    from html import escape
-except ImportError:  # Python 2
-    from cgi import escape
 import logging
 import socket
 import time
+from html import escape
+from http.client import HTTPConnection
 from operator import itemgetter
-
-from six.moves.http_client import HTTPConnection
-from six.moves.urllib.parse import quote
-from six.moves.urllib.parse import urlparse
+from urllib.parse import quote
+from urllib.parse import urlparse
 
 from AccessControl.class_init import InitializeClass
 from AccessControl.Permissions import view_management_screens
@@ -95,7 +91,7 @@ class AcceleratedHTTPCache(Cache):
             for ob_path in purge_paths:
                 p = path.rstrip('/') + ob_path
                 h = self.connection_factory(host)
-                logger.debug('PURGING host %s, path %s' % (host, p))
+                logger.debug(f'PURGING host {host}, path {p}')
                 # An exception on one purge should not prevent the others.
                 try:
                     h.request('PURGE', p)
@@ -108,7 +104,7 @@ class AcceleratedHTTPCache(Cache):
                     logger.error(msg % url)
                     continue
                 r = h.getresponse()
-                status = '%s %s' % (r.status, r.reason)
+                status = f'{r.status} {r.reason}'
                 results.append(status)
                 logger.debug('purge response: %s' % status)
         return 'Server response(s): ' + ';'.join(results)
@@ -183,7 +179,7 @@ class AcceleratedHTTPCacheManager(CacheManager, SimpleItem):
 
     @security.private
     def _resetCacheId(self):
-        self.__cacheid = '%s_%f' % (id(self), time.time())
+        self.__cacheid = f'{id(self)}_{time.time():f}'
 
     @security.private
     def ZCacheManager_getCache(self):
@@ -264,7 +260,7 @@ class AcceleratedHTTPCacheManager(CacheManager, SimpleItem):
         if sort_by == id:
             newsr = not sort_reverse
         url = url + '&sort_reverse=' + (newsr and '1' or '0')
-        return '<a href="%s">%s</a>' % (escape(url, 1), escape(name))
+        return f'<a href="{escape(url, 1)}">{escape(name)}</a>'
 
 
 InitializeClass(AcceleratedHTTPCacheManager)
