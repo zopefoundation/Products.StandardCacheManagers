@@ -467,7 +467,7 @@ class RAMCacheManager(CacheManager, SimpleItem):
         if sort_by == id:
             newsr = not sort_reverse
         url = url + '&sort_reverse=' + (newsr and '1' or '0')
-        return '<a href="{}">{}</a>'.format(escape(url, 1), escape(name))
+        return f'<a href="{escape(url, 1)}">{escape(name)}</a>'
 
     @security.protected('Change cache managers')
     def manage_invalidate(self, paths, REQUEST=None):
