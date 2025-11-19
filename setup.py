@@ -21,7 +21,7 @@ def _read(fname):
 
 
 setup(name='Products.StandardCacheManagers',
-      version='6.1',
+      version='6.2.dev0',
       url='https://github.com/zopefoundation/Products.StandardCacheManagers',
       project_urls={
           'Issue Tracker': ('https://github.com/zopefoundation'
