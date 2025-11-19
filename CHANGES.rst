@@ -1,8 +1,10 @@
 Changelog
 =========
 
-6.1 (unreleased)
+6.1 (2025-11-19)
 ----------------
+
+- Fix release to include package data files.
 
 
 6.0 (2025-11-19)
