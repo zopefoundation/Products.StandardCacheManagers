@@ -39,7 +39,7 @@ maintainers = [
 dependencies = [
     "AccessControl",
     "transaction",
-    "Zope > 5",
+    "Zope >= 5",
     "zope.component",
 ]
 
