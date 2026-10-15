@@ -11,7 +11,7 @@
   </p>
 
   <dtml-with getSettings mapping>
-  
+
     <form action="manage_editProps" method="POST">
 
       <div class="form-group row">
@@ -74,4 +74,3 @@
 </main>
 
 <dtml-var manage_page_footer>
-
