@@ -27,7 +27,7 @@ Introduction
 The caching framework does not interpret the data in any way, it acts
 just as a general storage for data passed to it.  It tries to check if
 the data is pickleable though.  IOW, only pickleable data is
-cacheable. 
+cacheable.
 
 The idea behind the RAMCacheManager is that it should be shared between
 threads, so that the same objects are not cached in each thread.  This
@@ -57,9 +57,9 @@ shared among threads and does all the locking.  It has a writelock.
 No locking is done on reading though.  RAMCache keeps a dictionary of
 ObjectCacheEntries indexed by the physical path of a cached object.
 
-ObjectCacheEntries is a container for cached values for a single object.  
-The values in it are indexed by a tuple of a view_name, interesting 
-request variables, and extra keywords passed to Cache.ZCache_set(). 
+ObjectCacheEntries is a container for cached values for a single object.
+The values in it are indexed by a tuple of a view_name, interesting
+request variables, and extra keywords passed to Cache.ZCache_set().
 
 CacheEntry is a wrapper around a single cached value.  It stores the
 data itself, creation time, view_name and keeps the access count.

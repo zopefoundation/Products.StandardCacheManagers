@@ -4,8 +4,8 @@
 <main class="container-fluid">
 
 <p class="form-help">
-Cache manager hits generally correspond to HTTP accelerator misses. 
-A hit is counted in the "authenticated hits" column even if headers 
+Cache manager hits generally correspond to HTTP accelerator misses.
+A hit is counted in the "authenticated hits" column even if headers
 are only set for anonymous requests.
 </p>
 
@@ -62,4 +62,3 @@ are only set for anonymous requests.
 </main>
 
 <dtml-var manage_page_footer>
-

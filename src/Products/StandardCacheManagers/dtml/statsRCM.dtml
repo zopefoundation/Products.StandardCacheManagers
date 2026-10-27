@@ -4,9 +4,9 @@
 <main class="container-fluid">
 
 <p class="form-help">
-  Memory usage is approximate. It is based on the pickled value of the 
-  cached data. The cache is cleaned up by removing the least frequently 
-  accessed entries since the last cleanup operation. The determination 
+  Memory usage is approximate. It is based on the pickled value of the
+  cached data. The cache is cleaned up by removing the least frequently
+  accessed entries since the last cleanup operation. The determination
   is made using the <em>recent hits</em> counter.
 </p>
 
@@ -100,14 +100,14 @@
       </td>
       </tr>
     </dtml-in>
-    
+
       <tr>
         <td width="16"> </td>
         <td colspan="7">
           <input type="submit" value=" Remove " />
         </td>
       </tr>
-    
+
     </table>
 
   </form>
